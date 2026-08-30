@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization' // Add this for kotlinx serialization
+}
+
+android {
+    namespace 'com.example.firefoxvpn'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.firefoxvpn"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:1.12.0"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.10.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation "androidx.activity:activity-compose:1.7.2"
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.ui:ui-graphics:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation "androidx.compose.material3:material3:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
+    implementation "androidx.navigation:navigation-compose:2.7.2"
+    implementation "androidx.paging:paging-compose:3.2.1"
+    implementation "coil:coil-compose:2.5.0"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.31.0-alpha"
+    // Ktor for HTTP client (including HTTP/2 and HTTP/3)
+    implementation "io.ktor:ktor-client-core:2.3.7"
+    implementation "io.ktor:ktor-client-okhttp:2.3.7" // For HTTP/2
+    // For HTTP/3 on Android, we use the CIO engine (which is based on OkHttp) but note: OkHttp doesn't support HTTP/3 on Android yet.
+    // We'll keep it for now and hope for future support, or we can switch to a different engine when available.
+    implementation "io.ktor:ktor-client-cio:2.3.7"
+    // For JSON serialization
+    implementation "io.ktor:ktor-client-serialization:2.3.7"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
+    // For secure storage
+    implementation "androidx.security:security-crypto:1.1.0-alpha06"
+    // For logging
+    implementation "com.github.timber:timber:4.7.1"
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.5"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+}
